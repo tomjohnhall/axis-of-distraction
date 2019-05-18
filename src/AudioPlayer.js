@@ -1,11 +1,8 @@
 import React from 'react'
-import { Row, Col, Button } from 'react-bootstrap'
 
 // media
 import audioTrack from './media/axis-of-distraction.mp3'
 
-
-import { Social } from './Social'
 import { PlayButton } from './PlayButton'
 
 export class AudioPlayer extends React.Component {

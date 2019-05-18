@@ -1,10 +1,8 @@
 import React from 'react'
-import { Jumbotron, Row, Col } from 'react-bootstrap'
+import { Jumbotron } from 'react-bootstrap'
 import { MoonLoader } from 'react-spinners'
 
 import { PlayButton } from './PlayButton'
-import { Social } from './Social'
-import { Z_FIXED } from 'zlib';
 
 
 export const StartScreen = ({ loaded, onClick }) => (
@@ -12,7 +10,9 @@ export const StartScreen = ({ loaded, onClick }) => (
 
     <Jumbotron style={styles.jumbo}>
       <p>
-        <span style={styles.bluebg}>axis of distraction ___ (📱--👀 [[ 🧠 👨🏻‍💻 ]]) </span>
+        <span style={styles.bluebg}>
+          axis of distraction ___ (📱--👀 [[ 🧠 👨🏻‍💻 ]])
+        </span>
       </p>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
 
