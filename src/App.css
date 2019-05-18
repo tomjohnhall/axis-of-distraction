@@ -31,3 +31,11 @@
     transform: rotate(360deg);
   }
 }
+
+.tweet {
+  max-width: 999px !important
+}
+
+.tweet-text>strong {
+  font-size: 150%
+}
