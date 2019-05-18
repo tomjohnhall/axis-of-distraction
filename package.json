@@ -20,7 +20,7 @@
     "react-pose": "^4.0.8",
     "react-scripts": "2.1.5",
     "react-spinners": "^0.5.4",
-    "react-tweet": "git+https://github.com/tomjohnhall/react-tweet.git",
+    "react-tweet": "github:tomjohnhall/react-tweet",
     "twitter": "^1.7.1"
   },
   "scripts": {
