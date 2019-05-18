@@ -72,7 +72,7 @@ class App extends Component {
 
   getData = () => {
     axios.get(
-      process.env.API_URL
+      process.env.REACT_APP_API_URL
     ).then(response => {
       var { data } = response.data
       data.forEach((line, i) => {
