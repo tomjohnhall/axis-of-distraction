@@ -72,11 +72,11 @@ class App extends Component {
 
   getData = () => {
     axios.get(
-      'http://localhost:3005/api/getData'
+      process.env.API_URL
     ).then(response => {
       var { data } = response.data
       data.forEach((line, i) => {
-        line.el = i < 4 ?
+        line.el = line.index < 4 ?
           <IntroTweet tweet={line.tweet} line={line.line} linkProps={linkProps} />
           :
           <Tweet tweet={line.tweet} line={line.line} linkProps={linkProps} />
