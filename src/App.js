@@ -10,7 +10,6 @@ import { Tweet } from './Tweet'
 import { IntroTweet } from './IntroTweet'
 import { Header } from './Header'
 import { Solo } from './Solo'
-import { Social } from './Social'
 
 // styles
 import './App.css';
