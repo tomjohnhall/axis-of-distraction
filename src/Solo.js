@@ -42,7 +42,7 @@ export class Solo extends Component {
     componentDidMount() {
         setTimeout(() => this.setState({ pose: 'big' }), 500)
         setTimeout(() => this.setState({ pose: 'spin' }), 5000)
-        console.log(this.state)
+
     }
 
     render() {

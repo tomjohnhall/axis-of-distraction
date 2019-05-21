@@ -11,12 +11,15 @@ import { IntroTweet } from './IntroTweet'
 import { Header } from './Header'
 import { Solo } from './Solo'
 
+// device
+import { isMobile } from 'react-device-detect'
+
 // styles
 import './App.css';
 import flashing from './flashing.css'
 
 //pose
-import posed from 'react-pose';
+import posed, { PoseGroup } from 'react-pose';
 
 
 const linkProps = { target: '_blank', rel: 'noreferrer' }
@@ -33,6 +36,17 @@ const Axis = posed.div({
   }
 })
 
+const MobileTweetContainer = posed.div({
+  exit: {
+    opacity: 0
+  },
+  enter: {
+    opacity: 1
+  }
+})
+
+const mobile = isMobile
+
 class App extends Component {
   state = {
     data: [],
@@ -40,12 +54,13 @@ class App extends Component {
     songTime: 0,
     lineIndex: 0,
     solo: null,
-    fadeOutSolo: false
+    fadeOutSolo: false,
+    audioTimes: [],
+    mobileTweet: null
   }
 
   componentDidMount() {
     this.getData()
-    console.log(this.state.data)
   }
 
   renderPlayer = () => {
@@ -53,16 +68,37 @@ class App extends Component {
   }
 
   renderTweet = (time) => {
-    const { data, lineIndex } = this.state
+    const { data, lineIndex, audioTimes } = this.state
     !this.state.solo && time > 112 && this.doSolo(data)
     time > 128 && this.setState({ fadeOutSolo: true })
-    const currentLine = data.find(line => line.index === lineIndex)
-    if (currentLine && time > currentLine.audioTime) {
-      this.setState(prevState => ({
-        tweets: [...prevState.tweets, currentLine.el],
-        lineIndex: prevState.lineIndex + 1
-      }))
+    const line = data.find(l => l.index === lineIndex)
+    if (!audioTimes.includes(line.audioTime) && time > line.audioTime) {
+      if (mobile) this.renderMobileTweet(line)
+      else {
+        const tweet = line.index < 4 ?
+          <IntroTweet tweet={line.tweet} line={line.line} linkProps={linkProps} />
+          :
+          <Tweet tweet={line.tweet} line={line.line} linkProps={linkProps} isMobile={mobile} />
+        return this.setState(prevState => ({
+          tweets: [...prevState.tweets, tweet],
+          lineIndex: prevState.lineIndex + 1,
+          audioTimes: [...prevState.audioTimes, line.audioTime]
+        }))
+      }
     }
+  }
+
+  renderMobileTweet = (line) => {
+    const mobTweet = () => (
+      <MobileTweetContainer style={{ maxHeight: '90%' }} key={line.index} >
+        <IntroTweet tweet={line.tweet} line={line.line} linkProps={linkProps} />
+      </MobileTweetContainer>
+    )
+    this.setState(prevState => ({
+      mobileTweet: mobTweet(),
+      lineIndex: prevState.lineIndex + 1,
+      audioTimes: [...prevState.audioTimes, line.audioTime]
+    }))
   }
 
   doSolo(data) {
@@ -75,12 +111,6 @@ class App extends Component {
       process.env.REACT_APP_API_URL
     ).then(response => {
       var { data } = response.data
-      data.forEach((line, i) => {
-        line.el = line.index < 4 ?
-          <IntroTweet tweet={line.tweet} line={line.line} linkProps={linkProps} />
-          :
-          <Tweet tweet={line.tweet} line={line.line} linkProps={linkProps} />
-      })
       this.setState({ data })
     }).catch(error => {
       console.log(error)
@@ -118,12 +148,19 @@ class App extends Component {
                 </div>
                 {started ?
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <ul style={solo ? styles.hide : styles.ul}>
-                      {tweets.slice(0, 3)}
-                    </ul>
-                    <div style={styles.tweetContainer} >
-                      {tweets.slice(3)}
-                    </div>
+                    {!mobile &&
+                      <div>
+                        <ul style={solo ? styles.hide : styles.ul}>
+                          {tweets.slice(0, 3)}
+                        </ul>
+                        <div style={styles.tweetContainer} >
+                          {tweets.slice(3)}
+                        </div>
+                      </div>
+                    }
+                    <PoseGroup>
+                      {this.state.mobileTweet}
+                    </PoseGroup>
                     {solo && this.renderSolo()}
                   </div>
                   :
@@ -166,7 +203,16 @@ const styles = {
   hide: {
     opacity: 0
   },
-  fullScreen: { position: 'fixed', width: '100%', left: 0 }
+  fullScreen: {
+    position: 'fixed',
+    width: '100%',
+    height: '100%',
+    left: 0,
+    top: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 }
 
 

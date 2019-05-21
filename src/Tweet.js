@@ -55,6 +55,7 @@ export class Tweet extends Component {
 }
 
 const containerStyle = {
+  maxWidth: '80%',
   width: '500px',
   position: 'absolute',
   boxShadow: '7px 6px 45px -19px rgba(15,15,15,1)'
