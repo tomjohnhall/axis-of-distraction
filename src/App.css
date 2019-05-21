@@ -32,10 +32,6 @@
   }
 }
 
-.tweet {
-  max-width: 999px !important
-}
-
 .tweet-text>strong {
   font-size: 150%
 }
@@ -66,12 +62,11 @@
   .ProfileTweet-action {
     width: 30px !important;
   }
-  .AdaptiveMedia {
-    max-height: 250px
+  .tweet {
+    max-height: 320px;
+    overflow-y: scroll;
   }
-  .AdaptiveMedia-photoContainer {
-    max-height: 250px !important;
-  }
+  
 }
 
 @media only screen and (max-width: 992px) {

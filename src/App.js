@@ -188,7 +188,6 @@ const styles = {
   },
   ul: {
     paddingLeft: '0px',
-    width: '500px'
   },
   tweetContainer: {
     position: 'fixed',

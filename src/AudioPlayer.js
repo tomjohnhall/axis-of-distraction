@@ -13,11 +13,8 @@ export class AudioPlayer extends React.Component {
     loaded: false
   }
 
-  componentDidMount() {
-    this.playPause()
-  }
-
   timeUpdate = () => {
+    !this.state.loaded && this.setState({ loaded: true, playing: true })
     if (this.player.currentTime - this.state.playTime > 0.5) {
       this.props.onListen(this.player.currentTime)
       this.setState({ playTime: this.player.currentTime })
@@ -30,14 +27,11 @@ export class AudioPlayer extends React.Component {
     this.setState({ playing: !playing })
   }
 
-  onLoaded = () => {
-    this.setState({ loaded: true })
-  }
 
   render() {
     return (
       <div>
-        <audio src={audioTrack} volume={0} ref={ref => this.player = ref} onTimeUpdate={this.timeUpdate} onLoadedData={this.onLoaded} />
+        <audio preload={'true'} autoplay={'true'} src={audioTrack} volume={0} ref={ref => this.player = ref} onTimeUpdate={this.timeUpdate} />
         {this.state.loaded ?
           <PlayButton
             playing={this.state.playing}
