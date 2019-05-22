@@ -1,6 +1,5 @@
 import React from 'react'
-import { Jumbotron } from 'react-bootstrap'
-import { MoonLoader } from 'react-spinners'
+import { Jumbotron, Spinner } from 'react-bootstrap'
 
 import { PlayButton } from './PlayButton'
 
@@ -19,8 +18,9 @@ export const StartScreen = ({ loaded, onClick }) => (
         {loaded ?
           <PlayButton playing={false} onClick={onClick} />
           :
-          <MoonLoader css={styles.spinner}
-            size={30} color={'#ffffff'} />
+          <Spinner animation="border" role="status">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
         }
 
       </div>

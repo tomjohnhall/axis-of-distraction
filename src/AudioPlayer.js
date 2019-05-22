@@ -1,10 +1,7 @@
 import React from 'react'
 
-// media
-import audioTrack from './media/axis-of-distraction.mp3'
-
 import { PlayButton } from './PlayButton'
-import { MoonLoader } from 'react-spinners'
+import { Spinner } from 'react-bootstrap'
 
 export class AudioPlayer extends React.Component {
   state = {
@@ -31,15 +28,16 @@ export class AudioPlayer extends React.Component {
   render() {
     return (
       <div>
-        <audio preload={'true'} autoplay={'true'} src={audioTrack} volume={0} ref={ref => this.player = ref} onTimeUpdate={this.timeUpdate} />
+        <audio preload={'true'} autoplay={'true'} src={'https://s3.eu-west-2.amazonaws.com/tomjohnhall/axis-of-distraction-lo.mp3'} volume={0} ref={ref => this.player = ref} onTimeUpdate={this.timeUpdate} />
         {this.state.loaded ?
           <PlayButton
             playing={this.state.playing}
             onClick={this.playPause}
           />
           :
-          <MoonLoader css={{ margin: '0 auto' }}
-            size={30} color={'#ffffff'} />
+          <Spinner animation="border" role="status" style={{ color: '#ffffff' }}>
+            <span className="sr-only">Loading...</span>
+          </Spinner>
         }
       </div >
     )
