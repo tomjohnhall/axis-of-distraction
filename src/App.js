@@ -72,20 +72,23 @@ class App extends Component {
     !this.state.solo && time > 112 && this.doSolo(data)
     time > 128 && this.setState({ fadeOutSolo: true })
     const line = data.find(l => l.index === lineIndex)
-    if (!audioTimes.includes(line.audioTime) && time > line.audioTime) {
-      if (mobile) this.renderMobileTweet(line)
-      else {
-        const tweet = line.index < 4 ?
-          <IntroTweet tweet={line.tweet} line={line.line} linkProps={linkProps} />
-          :
-          <Tweet tweet={line.tweet} line={line.line} linkProps={linkProps} isMobile={mobile} />
-        return this.setState(prevState => ({
-          tweets: [...prevState.tweets, tweet],
-          lineIndex: prevState.lineIndex + 1,
-          audioTimes: [...prevState.audioTimes, line.audioTime]
-        }))
+    if (line) {
+      if (!audioTimes.includes(line.audioTime) && time > line.audioTime) {
+        if (mobile) this.renderMobileTweet(line)
+        else {
+          const tweet = line.index < 4 ?
+            <IntroTweet tweet={line.tweet} line={line.line} linkProps={linkProps} />
+            :
+            <Tweet tweet={line.tweet} line={line.line} linkProps={linkProps} isMobile={mobile} />
+          return this.setState(prevState => ({
+            tweets: [...prevState.tweets, tweet],
+            lineIndex: prevState.lineIndex + 1,
+            audioTimes: [...prevState.audioTimes, line.audioTime]
+          }))
+        }
       }
     }
+    else { this.setState(prevState => ({ lineIndex: prevState.lineIndex + 1 })) }
   }
 
   renderMobileTweet = (line) => {
@@ -188,6 +191,7 @@ const styles = {
   },
   ul: {
     paddingLeft: '0px',
+    width: '500px',
   },
   tweetContainer: {
     position: 'fixed',
