@@ -26,7 +26,7 @@ const headerStyle = {
     container: {
         position: 'relative',
         zIndex: '9',
-        background: `url(${require('./media/beach4.jpg')})`,
+        background: 'url(https://s3.eu-west-2.amazonaws.com/tomjohnhall/beach4.jpg)',
         backgroundSize: '140%'
     }
 }

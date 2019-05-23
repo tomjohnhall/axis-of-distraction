@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
-import playImage from './media/play.svg'
-import pauseImage from './media/pause.svg'
+const playImage = 'https://s3.eu-west-2.amazonaws.com/tomjohnhall/play.svg'
+const pauseImage = 'https://s3.eu-west-2.amazonaws.com/tomjohnhall/pause.svg'
 
 export const PlayButton = ({ playing, onClick }) => (
     <Button style={style.button}>

@@ -186,7 +186,7 @@ const styles = {
     width: '100%',
     top: 0,
     left: 0,
-    backgroundImage: `url(${require('./media/beach4.jpg')})`,
+    backgroundImage: 'url("https://s3.eu-west-2.amazonaws.com/tomjohnhall/beach4.jpg")',
     backgroundSize: 'cover',
   },
   ul: {
