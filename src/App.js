@@ -106,7 +106,7 @@ class App extends Component {
 
   doSolo(data) {
     const line = data.find(line => line.index === 999)
-    this.setState(prevState => ({ tweets: prevState.tweets.slice(0, 3), solo: line.tweet }))
+    this.setState(prevState => ({ tweets: prevState.tweets.slice(0, 3), mobileTweet: null, solo: line.tweet }))
   }
 
   getData = () => {
