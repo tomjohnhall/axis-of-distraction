@@ -23,5 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 
 tweets.js
+server.js
 
 .env
